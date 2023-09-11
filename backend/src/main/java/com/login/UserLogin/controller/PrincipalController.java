@@ -1,5 +1,6 @@
 package com.login.UserLogin.controller;
 
+import com.login.UserLogin.repositories.RoleRepository;
 import com.login.UserLogin.service.request.CreateUserDTO;
 import com.login.UserLogin.models.ERole;
 import com.login.UserLogin.models.RoleEntity;
@@ -11,10 +12,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/users")
 public class PrincipalController {
 
     @Autowired
@@ -22,6 +25,8 @@ public class PrincipalController {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
     @GetMapping("/hello")
     public String hello(){
@@ -52,6 +57,10 @@ public class PrincipalController {
         userRepository.save(userEntity);
 
         return ResponseEntity.ok(userEntity);
+    }
+    @GetMapping("/roles")
+    public List<RoleEntity> getRoles() {
+      return roleRepository.findAll();
     }
 
     @DeleteMapping("/deleteUser")

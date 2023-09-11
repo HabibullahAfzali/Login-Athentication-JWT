@@ -28,41 +28,41 @@ public class UserLoginApplication {
 	@Autowired
 	UserRepository userRepository;
 
-	@Bean
-	CommandLineRunner init(){
-		return args -> {
-
-			UserEntity userEntity = UserEntity.builder()
-					.email("habib@mail.com")
-					.username("habib")
-					.password(passwordEncoder.encode("1234"))
-					.roles(Set.of(RoleEntity.builder()
-							.name(ERole.valueOf(ERole.ADMIN.name()))
-							.build()))
-					.build();
-
-			UserEntity userEntity2 = UserEntity.builder()
-					.email("david@mail.com")
-					.username("david")
-					.password(passwordEncoder.encode("1234"))
-					.roles(Set.of(RoleEntity.builder()
-							.name(ERole.valueOf(ERole.USER.name()))
-							.build()))
-					.build();
-
-			UserEntity userEntity3 = UserEntity.builder()
-					.email("andrea@mail.com")
-					.username("andrea")
-					.password(passwordEncoder.encode("1234"))
-					.roles(Set.of(RoleEntity.builder()
-							.name(ERole.valueOf(ERole.GUEST.name()))
-							.build()))
-					.build();
-
-			userRepository.save(userEntity);
-			userRepository.save(userEntity2);
-			userRepository.save(userEntity3);
-		};
-	}
+//	@Bean
+//	CommandLineRunner init(){
+//		return args -> {
+//
+//			UserEntity userEntity = UserEntity.builder()
+//					.email("habib@mail.com")
+//					.username("habib")
+//					.password(passwordEncoder.encode("1234"))
+//					.roles(Set.of(RoleEntity.builder()
+//							.name(ERole.valueOf(ERole.ADMIN.name()))
+//							.build()))
+//					.build();
+//
+//			UserEntity userEntity2 = UserEntity.builder()
+//					.email("david@mail.com")
+//					.username("david")
+//					.password(passwordEncoder.encode("1234"))
+//					.roles(Set.of(RoleEntity.builder()
+//							.name(ERole.valueOf(ERole.USER.name()))
+//							.build()))
+//					.build();
+//
+//			UserEntity userEntity3 = UserEntity.builder()
+//					.email("andrea@mail.com")
+//					.username("andrea")
+//					.password(passwordEncoder.encode("1234"))
+//					.roles(Set.of(RoleEntity.builder()
+//							.name(ERole.valueOf(ERole.GUEST.name()))
+//							.build()))
+//					.build();
+//
+//			userRepository.save(userEntity);
+//			userRepository.save(userEntity2);
+//			userRepository.save(userEntity3);
+//		};
+//	}
 
 }
