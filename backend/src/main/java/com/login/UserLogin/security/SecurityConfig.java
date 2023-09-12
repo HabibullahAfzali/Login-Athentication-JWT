@@ -62,9 +62,9 @@ public class SecurityConfig {
                 .and()
                 .csrf().disable()
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/users/**").permitAll();
+                    auth.requestMatchers("/api/**").permitAll();
                     auth.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll();
-                    auth.requestMatchers(HttpMethod.POST,"/users/createUser").permitAll(); // Allow POST requests to /users/createUser
+                    auth.requestMatchers(HttpMethod.POST,"/api/createUser").permitAll(); // Allow POST requests to /users/createUser
                     auth.anyRequest().authenticated();
                 })
                 .sessionManagement(session -> {

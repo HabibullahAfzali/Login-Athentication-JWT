@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
-public class PrincipalController {
+public class UserController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -36,10 +36,6 @@ public class PrincipalController {
         return userDetailsService.getAllUsers();
     }
 
-    @GetMapping("/helloSecured")
-    public String helloSecured(){
-        return "Hello World Secured";
-    }
 
     @PostMapping("/createUser")
     public ResponseEntity<?> createUser(@Valid @RequestBody CreateUserDTO createUserDTO){
