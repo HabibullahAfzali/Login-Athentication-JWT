@@ -14,7 +14,7 @@
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <router-link to="/listusers" exact class="nav-link"
                             exact-active-class="active">Users</router-link>
-                        <router-link to="/" exact class="nav-link" exact-active-class="active">SignUp</router-link>
+                        <router-link to="/register" exact class="nav-link" exact-active-class="active">SignUp</router-link>
                     </ul>
 
                 </div>

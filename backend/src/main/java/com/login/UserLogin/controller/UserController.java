@@ -1,6 +1,7 @@
 package com.login.UserLogin.controller;
 
 import com.login.UserLogin.repositories.RoleRepository;
+import com.login.UserLogin.service.UserDetailsServiceImpl;
 import com.login.UserLogin.service.request.CreateUserDTO;
 import com.login.UserLogin.models.ERole;
 import com.login.UserLogin.models.RoleEntity;
@@ -17,7 +18,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api")
 public class PrincipalController {
 
     @Autowired
@@ -26,11 +27,13 @@ public class PrincipalController {
     @Autowired
     private UserRepository userRepository;
     @Autowired
+    private UserDetailsServiceImpl userDetailsService;
+    @Autowired
     private RoleRepository roleRepository;
 
-    @GetMapping("/hello")
-    public String hello(){
-        return "Hello World Not Secured";
+    @GetMapping("/users")
+    public List<UserEntity> listUsers(){
+        return userDetailsService.getAllUsers();
     }
 
     @GetMapping("/helloSecured")

@@ -7,14 +7,14 @@ const registeredUsers = ref([]);
 
 onMounted(async () => {
     try {
-        const response = await axios.get('http://localhost:8080/users');
+        const response = await axios.get('http://localhost:8080/api/users');
         registeredUsers.value = response.data.map(user => {
-            if (user.profilePicture) {
-                user.profilePicture = `http://localhost:8080/Images/${user.profilePicture}`;
-            } else {
-                user.profilePicture = "";
+         
+            return {
+                username: user.username,
+                email: user.email,
+                roles: user.roles
             }
-            return user;
         });
     } catch (error) {
         console.error('Error fetching registered users:', error);
@@ -25,16 +25,14 @@ onMounted(async () => {
     <main>
         <Navbar />
         <div class="container mt-5">
-            <h1 class="text-center mb-4" style="color: hsl(218, 81%, 75%)">{{ $t("RegisterUsers") }}</h1>
+            <h1 class="text-center mb-4" style="color: hsl(218, 81%, 75%)">Users</h1>
             <div class="row justify-content-center">
                 <div class="col-md-4 mb-4" v-for="(user, index) in registeredUsers" :key="index">
                     <div class="card">
                         <div class="card-body text-center">
-                            <div class="profile-picture">
-                                <img :src="user.profilePicture" alt="Profile Picture" class="rounded-circle img-fluid" />
-                            </div>
                             <h5 class="card-title mt-3">{{ user.username }}</h5>
                             <p class="card-text">{{ user.email }}</p>
+                            <p class="card-text">{{ user.roles.map(role=>role.name).join(',') }}</p>
                         </div>
                     </div>
                 </div>

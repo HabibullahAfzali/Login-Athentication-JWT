@@ -19,7 +19,7 @@ const signUp = async () => {
         role: { id: selectedRole.value } 
     };
 
-    axios.post('http://localhost:8080/users/createUser', newUser)
+    axios.post('http://localhost:8080/api/createUser', newUser)
         .then(() => {
             alert("User successfully added!");
             route.push('/listusers');
@@ -30,7 +30,7 @@ const signUp = async () => {
 };
 
 const fetchRoles = () => {
-    axios.get('http://localhost:8080/users/roles')
+    axios.get('http://localhost:8080/api/roles')
         .then(res => {
             roles.value = res.data;
         }).catch(error => {
