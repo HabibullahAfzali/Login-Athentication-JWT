@@ -4,28 +4,26 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 
-const user = ref({
-    username: '',
-    email: '',
-    password: ''
-});
+const users = ref([]);
 const roles = ref([]);
+const selectedUser = ref("Select_from_list");
 const selectedRole = ref("Select_from_list");
 const route = useRouter();
-
-const signUp = async () => {
-        const newUser = {
-        ...user.value,
-        role: { id: selectedRole.value } 
+const assignRoles = async () => {
+    
+    const assignData = {
+        userId: selectedUser.value,
+        roleId: selectedRole.value,
     };
-
-    axios.post('http://localhost:8080/api/createUser', newUser)
+    console.log("assign data: ", assignData)
+    axios.post('http://localhost:8080/api/assign-roles', assignData)
         .then(() => {
-            alert("User successfully added!");
+            console.log("assign data: ",assignData)
+            alert("Role successfully assigned to the user!");
             route.push('/listusers');
         })
         .catch(error => {
-            console.error("Not able to add user:", error);
+            console.error("Role Not Assigned:", error);
         });
 };
 
@@ -38,8 +36,18 @@ const fetchRoles = () => {
         });
 };
 
+const fetchUsers = () => {
+    axios.get('http://localhost:8080/api/users')
+        .then(res => {
+            users.value = res.data;
+        }).catch(error => {
+            console.error('User not found!', error);
+        });
+};
+
 onMounted(() => {
     fetchRoles();
+    fetchUsers();
 });
 </script>
 <template>
@@ -49,11 +57,11 @@ onMounted(() => {
             <div class="row gx-lg-5 align-items-center mb-5">
                 <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
                     <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
-                        Bienvenidos a <br />
-                        <span style="color: hsl(218, 81%, 75%)">la LoginApp</span>
+                        Here you go! Since after  <br />
+                        <span style="color: hsl(218, 81%, 75%)">you will have the given rights access</span>
                     </h1>
                     <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
-                        Para ver tus avances en el desarrollo de software
+                        Pleas take into account all your access reposibilities
                     </p>
                 </div>
 
@@ -62,21 +70,18 @@ onMounted(() => {
                     <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
 
                     <div class="card bg-glass">
-                        <h1 class="mt-3 display-5 fw-bold ls-tight text-center" style="color: hsl(218, 81%, 75%)">SignUp
+                        <h1 class="mt-3 display-5 fw-bold ls-tight text-center" style="color: hsl(218, 81%, 75%)">User Authorization
                         </h1>
                         <div class="card-body px-4 py-5 px-md-5">
-                            <form @submit.prevent="signUp">
-                                <div class="form-outline mb-4">
-                                    <input type="text" class="form-control center" v-model="user.username" />
-                                    <label class="form-label" for="form3Example1">UserName</label>
-                                </div>
-                                <div class="form-outline mb-4">
-                                    <input type="email" class="form-control" v-model="user.email" />
-                                    <label class="form-label" for="form3Example2">Email</label>
-                                </div>
-                                <div class="form-outline mb-4">
-                                    <input type="password" class="form-control" v-model="user.password" />
-                                    <label class="form-label" for="form3Example4">Password</label>
+                            <form @submit.prevent="assignRoles">
+                                <!-- User Dropdown -->
+                                <div class="col-md-12 form-group mb-3">
+                                    <label for="username" class="form-label">User</label>
+                                    <select id="username" name="username" class="form-control" v-model="selectedUser">
+                                        <option value="Select_from_list" disabled>Select_from_list</option>
+                                        <option v-for="user in users" :key="user.id" :value="user.id">{{ user.username
+                                        }}</option>
+                                    </select>
                                 </div>
                                 <!-- Role Dropdown -->
                                 <div class="row">
@@ -94,10 +99,6 @@ onMounted(() => {
                                     <div class="col-md-12 form-group">
                                         <input class="btn btn-secondary w-100" type="submit" value="Submit">
                                     </div>
-                                </div>
-                                <div class="text-center">
-                                    <p> Already Have an Account </p>
-                                    <a href="/Welcome">login</a>
                                 </div>
                             </form>
                         </div>

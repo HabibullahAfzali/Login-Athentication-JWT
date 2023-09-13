@@ -1,5 +1,4 @@
 <script setup>
-import Navbar from '../components/Navbar.vue';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import axios from 'axios';
@@ -9,6 +8,9 @@ const user = ref({
     username: '',
     password: ''
 });
+
+const loginErrorMessage = ref('');
+
 const login = async (user) => {
     axios.post('http://localhost:8080/login', user)
         .then(() => {
@@ -17,13 +19,13 @@ const login = async (user) => {
         })
         .catch(error => {
             console.error("Login failed:", error);
+            loginErrorMessage.value = "Wrong username or password. Please try again.";
         });
 };
 </script>
 
 <template>
     <main>
-        <Navbar />
         <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
             <div class="row gx-lg-5 align-items-center mb-5">
                 <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
@@ -53,6 +55,8 @@ const login = async (user) => {
                                     <input type="password" id="password" class="form-control" v-model="user.password" />
                                     <label class="form-label" for="password">Password</label>
                                 </div>
+                                <div v-if="loginErrorMessage" class="alert alert-danger">{{ loginErrorMessage }}</div>
+
                                 <button type="submit" class="btn btn-primary btn-block mb-4 w-100">
                                     Login
                                 </button>

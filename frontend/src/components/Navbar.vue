@@ -15,6 +15,7 @@
                         <router-link to="/listusers" exact class="nav-link"
                             exact-active-class="active">Users</router-link>
                         <router-link to="/register" exact class="nav-link" exact-active-class="active">SignUp</router-link>
+                        <router-link to="/roleassign" exact class="nav-link" exact-active-class="active">Assign-Roles</router-link>
                     </ul>
 
                 </div>
