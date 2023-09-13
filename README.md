@@ -14,7 +14,7 @@ Maven for dependency management
 Vue.js
 Bootstrap for styling
 Axios for making HTTP requests to the backend
-3 Features
+# Features
 ### User Management:
 
 Create, Read, Update, and Delete (CRUD) operations for users.
@@ -30,42 +30,42 @@ User registration and login.
 Role-based authorization to restrict access to certain resources and functionalities.
 Example roles: User, Admin, etc.
 # Backend Setup
-1-Clone the Repository:
+#### 1-Clone the Repository:
 
 git clone <repository_url>
 cd <repository_directory>
 
-2-Configure the Database:
+#### 2-Configure the Database:
 
 Create a MySQL database and update the application.properties file with the database connection information.
-3-Build and Run the Backend:
+#### 3-Build and Run the Backend:
 
 - mvn clean install
 - mvn spring-boot:run
 The backend server should start at http://localhost:8080.
 
 # Frontend Setup
-1-Navigate to the Vue.js Frontend Directory:
+#### 1-Navigate to the Vue.js Frontend Directory:
 cd frontend
 
-2-Install Dependencies:
+#### 2-Install Dependencies:
 npm install
 
-3-Run the Frontend:
+#### 3-Run the Frontend:
 
 npm run dev
 
 # Usage
-1-Registration:
+#### 1-Registration:
 
 Visit the registration page to create a new user account.
-2-Login:
+ #### 2-Login:
 
 Use your registered credentials to log in.
-3-User Management:
+#### 3-User Management:
 
 Once logged in, authorized users (e.g., Admin) can perform CRUD operations on users and assign roles.
-4-Authorization:
+#### 4-Authorization:
 
 Access to certain features and functionality is restricted based on user roles.
 # API Endpoints
