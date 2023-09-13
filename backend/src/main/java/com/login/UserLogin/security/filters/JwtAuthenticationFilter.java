@@ -1,8 +1,6 @@
 package com.login.UserLogin.security.filters;
 
 import com.login.UserLogin.models.UserEntity;
-import com.fasterxml.jackson.core.exc.StreamReadException;
-import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.login.UserLogin.security.jwt.JwtUtils;
 import jakarta.servlet.FilterChain;
@@ -23,7 +21,7 @@ import java.util.Map;
 
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
-    private JwtUtils jwtUtils;
+    private final JwtUtils jwtUtils;
 
     public JwtAuthenticationFilter(JwtUtils jwtUtils){
         this.jwtUtils = jwtUtils;
@@ -45,10 +43,6 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                     new UsernamePasswordAuthenticationToken(username, password);
 
             return getAuthenticationManager().authenticate(authenticationToken);
-        } catch (StreamReadException e) {
-            throw new RuntimeException(e);
-        } catch (DatabindException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

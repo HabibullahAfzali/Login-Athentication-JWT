@@ -13,13 +13,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-
     @Autowired
     private UserRepository userRepository;
+
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -29,7 +31,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         Collection<? extends GrantedAuthority> authorities = userEntity.getRoles()
                 .stream()
-                .map(role -> new SimpleGrantedAuthority("ROLE_".concat(role.getName().name())))
+                .map(role -> new SimpleGrantedAuthority("ROLE_"+ role.getName()))
                 .collect(Collectors.toSet());
 
         return new User(userEntity.getUsername(),
@@ -40,7 +42,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 true,
                 authorities);
     }
+    //save user
+    public UserEntity saveUser(UserEntity userEntity){
+
+     return    userRepository.save(userEntity);
+
+    }
+//get all users
     public List<UserEntity> getAllUsers(){
         return (List<UserEntity>) userRepository.findAll();
     }
+
+
+
 }
